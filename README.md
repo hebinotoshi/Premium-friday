@@ -4,6 +4,7 @@ The Premium Friday Library is a Python library that detects whether it's the las
 
 ## Installation
 
+<TO BE COMPLETED https://medium.com/@joel.barmettler/how-to-upload-your-python-package-to-pypi-65edc5fe9c56>
 To install the Premium Friday Library, run the following command:
 
 ```sh

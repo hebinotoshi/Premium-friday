@@ -7,11 +7,12 @@ def is_premium_friday(day):
 def is_premiumer_friday(day):
     return is_premium_friday(day) and day.month % 3 == 0
 
+def is_premiumerest_friday(day):
+    return is_premium_friday(day) and day.month % 6 == 0
+
 def is_premiumest_friday(day):
     return is_premium_friday(day) and day.month == 12
 
-def is_premiumerest_friday(day):
-    return is_premium_friday(day) and day.month % 6 == 0
 
 def is_all_premiums(day):
     return is_premium_friday(day) and is_premiumer_friday(day) and is_premiumest_friday(day) and is_premiumerest_friday(day)

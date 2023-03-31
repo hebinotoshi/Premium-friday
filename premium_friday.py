@@ -21,7 +21,7 @@ def is_all_premiums(day):
         return "This date is not a Premium Friday"
 
 def get_user_input():
-    user_input = input("Enter a date (YYYY-MM-DD): ")
+    user_input = input("Hit return to check Today or enter a date in this format(YYYY-MM-DD): ")
     if not user_input:
         today = date.today()
         return today

@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import date, timedelta
 
 def is_premium_friday(day):
     final = (day.replace(day=28) + timedelta(days=4)).replace(day=1) - timedelta(days=1)
@@ -11,25 +11,24 @@ def is_premiumest_friday(day):
     return is_premium_friday(day) and day.month == 12
 
 def is_all_premiums(day):
-    return all(func(day) for func in [is_premium_friday, is_premiumer_friday, is_premiumest_friday])
+    if is_premiumest_friday(day):
+        return "This date is Premium, Premiumer, and Premiumest Friday"
+    elif is_premiumer_friday(day):
+        return "This date is Premiumer and Premium Friday"
+    elif is_premium_friday(day):
+        return "This date is Premium Friday"
+    else:
+        return "This date is not a Premium Friday"
 
-today = datetime.today()
-input_date = input("Enter a date (YYYY-MM-DD), or press Enter to use today's date: ")
+def get_user_input():
+    user_input = input("Enter a date (YYYY-MM-DD): ")
+    if not user_input:
+        today = date.today()
+        return today
+    else:
+        year, month, day = user_input.split("-")
+        return date(int(year), int(month), int(day))
 
-if input_date == '':
-    day = today
-else:
-    day = datetime.strptime(input_date, "%Y-%m-%d")
+day = get_user_input()
+print(is_all_premiums(day))
 
-if is_all_premiums(day):
-    print("This date is Premium, Premiumer, and Premiumest Friday")
-elif is_premium_friday(day) and is_premiumer_friday(day):
-    print("This date is both Premium and Premiumer Friday")
-elif is_premium_friday(day) and is_premiumest_friday(day):
-    print("This date is both Premium and Premiumest Friday")
-elif is_premiumer_friday(day) and is_premiumest_friday(day):
-    print("This date is both Premiumer and Premiumest Friday")
-elif is_premium_friday(day):
-    print("This date is Premium Friday")
-else:
-    print("This date is not a Premium Friday")

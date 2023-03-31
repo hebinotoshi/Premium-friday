@@ -10,25 +10,31 @@ def is_premiumer_friday(day):
 def is_premiumest_friday(day):
     return is_premium_friday(day) and day.month == 12
 
+def is_premiumerest_friday(day):
+    return is_premium_friday(day) and day.month % 6 == 0
+
 def is_all_premiums(day):
-    if is_premiumest_friday(day):
-        return "This date is Premium, Premiumer, and Premiumest Friday"
-    elif is_premiumer_friday(day):
-        return "This date is Premiumer and Premium Friday"
-    elif is_premium_friday(day):
-        return "This date is Premium Friday"
-    else:
-        return "This date is not a Premium Friday"
+    return is_premium_friday(day) and is_premiumer_friday(day) and is_premiumest_friday(day) and is_premiumerest_friday(day)
 
-def get_user_input():
-    user_input = input("Hit return to check Today or enter a date in this format(YYYY-MM-DD): ")
-    if not user_input:
-        today = date.today()
-        return today
-    else:
-        year, month, day = user_input.split("-")
-        return date(int(year), int(month), int(day))
+# Get user input for date, default to today if no input provided
+date_str = input("Enter a date (YYYY-MM-DD) or leave blank for today: ")
+if not date_str:
+    day = date.today()
+else:
+    year, month, day = map(int, date_str.split("-"))
+    day = date(year, month, day)
 
-day = get_user_input()
-print(is_all_premiums(day))
-
+if is_all_premiums(day):
+    print("This date is Premium, Premiumer, Premiumerest, and Premiumest Friday")
+elif is_premium_friday(day) and is_premiumer_friday(day) and is_premiumerest_friday(day):
+    print("This date is Premium, Premiumer, and Premiumerest Friday")
+elif is_premium_friday(day) and is_premiumer_friday(day):
+    print("This date is both Premium and Premiumer Friday")
+elif is_premium_friday(day) and is_premiumest_friday(day):
+    print("This date is both Premium and Premiumest Friday")
+elif is_premiumer_friday(day) and is_premiumerest_friday(day):
+    print("This date is both Premiumer and Premiumerest Friday")
+elif is_premium_friday(day):
+    print("This date is Premium Friday")
+else:
+    print("This date is not a Premium Friday")
